@@ -11,4 +11,9 @@ class IngredientsController < ApplicationController
     )
     render :show
   end
+
+  def show
+    @ingredient = Ingredient.find_by(id: params[:id])
+    render :show
+  end
 end
