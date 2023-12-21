@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   delete "/ingredients/:id" => "ingredients#destroy"
 
   post "/users" => "users#create"
+  get "/users" => "users#index"
+  get "/users/:id" => "users#show"
+  patch "/users/:id" => "users#update"
+  delete "/users/:id" => "users#destroy"
 end
