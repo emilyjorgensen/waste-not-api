@@ -1,8 +1,15 @@
 require "test_helper"
 
 class PantryItemsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = User.create(email: "test@test.com", password: "password")
+    post "/sessions.json", params: { email: "test@test.com", password: "password" }
+    data = JSON.parse(response.body)
+    @jwt = data["jwt"]
+  end
+
   test "index" do
-    get "/pantry_items.json"
+    get "/pantry_items.json", headers: { "Authorization" => "Bearer #{@jwt}" }
     assert_response 200
 
     data = JSON.parse(response.body)
@@ -11,13 +18,13 @@ class PantryItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "create" do
     assert_difference "PantryItem.count", 1 do
-      post "/pantry_items.json", params: { user_id: 1, ingredient_id: 1, amount: "1 block", category: "pantry", use_by_date: "01/01/25" }
+      post "/pantry_items.json", headers: { "Authorization" => "Bearer #{@jwt}" }, params: { user_id: 1, ingredient_id: 1, amount: "1 block", category: "pantry", use_by_date: "01/01/25" }
       assert_response 200
     end
   end
 
   test "show" do
-    get "/pantry_items/#{PantryItem.first.id}.json"
+    get "/pantry_items/#{PantryItem.first.id}.json", headers: { "Authorization" => "Bearer #{@jwt}" }
     assert_response 200
 
     data = JSON.parse(response.body)
@@ -26,7 +33,7 @@ class PantryItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "update" do
     pantry_item = PantryItem.first
-    patch "/pantry_items/#{pantry_item.id}.json", params: { amount: "Updated amount" }
+    patch "/pantry_items/#{pantry_item.id}.json", headers: { "Authorization" => "Bearer #{@jwt}" }, params: { amount: "Updated amount" }
     assert_response 200
 
     data = JSON.parse(response.body)
@@ -35,7 +42,7 @@ class PantryItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "destroy" do
     assert_difference "PantryItem.count", -1 do
-      delete "/pantry_items/#{PantryItem.first.id}.json"
+      delete "/pantry_items/#{PantryItem.first.id}.json", headers: { "Authorization" => "Bearer #{@jwt}" }
       assert_response 200
     end
   end

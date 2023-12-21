@@ -1,4 +1,6 @@
 class PantryItemsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @pantry_items = PantryItem.all
     render :index
