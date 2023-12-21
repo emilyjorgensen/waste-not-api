@@ -14,7 +14,11 @@ class PantryItemsController < ApplicationController
       category: params[:category],
       use_by_date: params[:use_by_date],
     )
-    render :show
+    if @pantry_item.valid? #happy path
+      render :show
+    else #sad path
+      render json: { errors: @pantry_item.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -29,7 +33,11 @@ class PantryItemsController < ApplicationController
       category: params[:category] || @pantry_item.category,
       use_by_date: params[:use_by_date] || @pantry_item.use_by_date,
     )
-    render :show
+    if @pantry_item.valid? #happy path
+      render :show
+    else #sad path
+      render json: { errors: @pantry_item.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy

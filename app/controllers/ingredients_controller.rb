@@ -11,7 +11,11 @@ class IngredientsController < ApplicationController
       name: params[:name],
       image_url: params[:image_url],
     )
-    render :show
+    if @ingredient.valid? #happy path
+      render :show
+    else #sad path
+      render json: { errors: @ingredient.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def show
@@ -25,7 +29,11 @@ class IngredientsController < ApplicationController
       name: params[:name] || @ingredient.name,
       image_url: params[:image_url] || @ingredient.image_url,
     )
-    render :show
+    if @ingredient.valid? #happy path
+      render :show
+    else #sad path
+      render json: { errors: @ingredient.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
