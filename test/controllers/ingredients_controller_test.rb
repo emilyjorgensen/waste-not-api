@@ -1,6 +1,13 @@
 require "test_helper"
 
 class IngredientsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = User.create(email: "test@test.com", password: "password")
+    post "/sessions.json", params: { email: "test@test.com", password: "password" }
+    data = JSON.parse(response.body)
+    @jwt = data["jwt"]
+  end
+
   test "index" do
     get "/ingredients.json"
     assert_response 200
@@ -11,7 +18,7 @@ class IngredientsControllerTest < ActionDispatch::IntegrationTest
 
   test "create" do
     assert_difference "Ingredient.count", 1 do
-      post "/ingredients.json", params: { name: "test", image_url: "test.com" }
+      post "/ingredients.json", headers: { "Authorization" => "Bearer #{@jwt}" }, params: { name: "test", image_url: "test.com" }
       assert_response 200
     end
   end
@@ -26,7 +33,7 @@ class IngredientsControllerTest < ActionDispatch::IntegrationTest
 
   test "update" do
     ingredient = Ingredient.first
-    patch "/ingredients/#{ingredient.id}.json", params: { name: "Updated name" }
+    patch "/ingredients/#{ingredient.id}.json", headers: { "Authorization" => "Bearer #{@jwt}" }, params: { name: "Updated name" }
     assert_response 200
 
     data = JSON.parse(response.body)
@@ -35,7 +42,7 @@ class IngredientsControllerTest < ActionDispatch::IntegrationTest
 
   test "destroy" do
     assert_difference "Ingredient.count", -1 do
-      delete "/ingredients/#{Ingredient.first.id}.json"
+      delete "/ingredients/#{Ingredient.first.id}.json", headers: { "Authorization" => "Bearer #{@jwt}" }
       assert_response 200
     end
   end
