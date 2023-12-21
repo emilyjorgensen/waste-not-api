@@ -23,4 +23,13 @@ class PantryItemsControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     assert_equal ["id", "user_id", "ingredient_id", "amount", "category", "use_by_date", "created_at", "updated_at"], data.keys
   end
+
+  test "update" do
+    pantry_item = PantryItem.first
+    patch "/pantry_items/#{pantry_item.id}.json", params: { amount: "Updated amount" }
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal "Updated amount", data["amount"]
+  end
 end

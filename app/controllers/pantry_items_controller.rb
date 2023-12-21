@@ -19,4 +19,14 @@ class PantryItemsController < ApplicationController
     @pantry_item = PantryItem.find_by(id: params[:id])
     render :show
   end
+
+  def update
+    @pantry_item = PantryItem.find_by(id: params[:id])
+    @pantry_item.update(
+      amount: params[:amount] || @pantry_item.amount,
+      category: params[:category] || @pantry_item.category,
+      use_by_date: params[:use_by_date] || @pantry_item.use_by_date,
+    )
+    render :show
+  end
 end
