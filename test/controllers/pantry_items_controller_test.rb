@@ -11,8 +11,16 @@ class PantryItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "create" do
     assert_difference "PantryItem.count", 1 do
-      post "/pantry_items.json", params: { user_id: 1, pantry_item: 1, amount: "1 block", category: "pantry", use_by_date: "01/01/25" }
+      post "/pantry_items.json", params: { user_id: 1, ingredient_id: 1, amount: "1 block", category: "pantry", use_by_date: "01/01/25" }
       assert_response 200
     end
+  end
+
+  test "show" do
+    get "/pantry_items/#{PantryItem.first.id}.json"
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal ["id", "user_id", "ingredient_id", "amount", "category", "use_by_date", "created_at", "updated_at"], data.keys
   end
 end

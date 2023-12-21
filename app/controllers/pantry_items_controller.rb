@@ -14,4 +14,9 @@ class PantryItemsController < ApplicationController
     )
     render :show
   end
+
+  def show
+    @pantry_item = PantryItem.find_by(id: params[:id])
+    render :show
+  end
 end
