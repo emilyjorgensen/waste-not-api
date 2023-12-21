@@ -32,4 +32,11 @@ class PantryItemsControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     assert_equal "Updated amount", data["amount"]
   end
+
+  test "destroy" do
+    assert_difference "PantryItem.count", -1 do
+      delete "/pantry_items/#{PantryItem.first.id}.json"
+      assert_response 200
+    end
+  end
 end

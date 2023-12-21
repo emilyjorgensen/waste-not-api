@@ -29,4 +29,10 @@ class PantryItemsController < ApplicationController
     )
     render :show
   end
+
+  def destroy
+    @pantry_item = PantryItem.find_by(id: params[:id])
+    @pantry_item.destroy
+    render json: { message: "Pantry item destroyed successfully" }
+  end
 end
