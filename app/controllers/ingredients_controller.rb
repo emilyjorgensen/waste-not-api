@@ -25,4 +25,10 @@ class IngredientsController < ApplicationController
     )
     render :show
   end
+
+  def destroy
+    @ingredient = Ingredient.find_by(id: params[:id])
+    @ingredient.destroy
+    render json: { message: "Ingredient destroyed successfully" }
+  end
 end
