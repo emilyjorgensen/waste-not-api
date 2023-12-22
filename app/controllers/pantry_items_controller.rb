@@ -2,7 +2,7 @@ class PantryItemsController < ApplicationController
   before_action :authenticate_user
 
   def index
-    @pantry_items = PantryItem.all
+    @pantry_items = current_user.pantry_items
     render :index
   end
 
@@ -22,12 +22,12 @@ class PantryItemsController < ApplicationController
   end
 
   def show
-    @pantry_item = PantryItem.find_by(id: params[:id])
+    @pantry_item = current_user.pantry_items.find_by(id: params[:id])
     render :show
   end
 
   def update
-    @pantry_item = PantryItem.find_by(id: params[:id])
+    @pantry_item = current_user.pantry_items.find_by(id: params[:id])
     @pantry_item.update(
       amount: params[:amount] || @pantry_item.amount,
       category: params[:category] || @pantry_item.category,
@@ -41,7 +41,7 @@ class PantryItemsController < ApplicationController
   end
 
   def destroy
-    @pantry_item = PantryItem.find_by(id: params[:id])
+    @pantry_item = current_user.pantry_items.find_by(id: params[:id])
     @pantry_item.destroy
     render json: { message: "Pantry item destroyed successfully" }
   end
