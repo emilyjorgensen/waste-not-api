@@ -14,6 +14,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def authenticate_user
+    unless current_user
+      render json: {}, status: :unauthorized
+    end
+  end
+
   # def index
   #   @users = User.all
   #   render :index
