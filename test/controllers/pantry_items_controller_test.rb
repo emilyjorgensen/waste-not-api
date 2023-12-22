@@ -33,12 +33,13 @@ class PantryItemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update" do
-    pantry_item = PantryItem.first
-    patch "/pantry_items/#{pantry_item.id}.json", headers: { "Authorization" => "Bearer #{@jwt}" }, params: { amount: "Updated amount" }
+    post "/pantry_items.json", headers: { "Authorization" => "Bearer #{@jwt}" }, params: { ingredient_id: @ingredient.id, amount: "1 block", category: "pantry", use_by_date: "01/01/25" }
+    pantry_item = JSON.parse(response.body)
+    patch "/pantry_items/#{pantry_item["id"]}.json", headers: { "Authorization" => "Bearer #{@jwt}" }, params: { amount: "Updated amount" }
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal "Updated amount", data["status"]
+    assert_equal "Updated amount", data["amount"]
   end
 
   test "destroy" do
