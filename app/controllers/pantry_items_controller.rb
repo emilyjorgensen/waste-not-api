@@ -8,7 +8,7 @@ class PantryItemsController < ApplicationController
 
   def create
     @pantry_item = PantryItem.create(
-      user_id: params[:user_id],
+      user_id: current_user.id,
       ingredient_id: params[:ingredient_id],
       amount: params[:amount],
       category: params[:category],

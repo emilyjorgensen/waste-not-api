@@ -1,7 +1,8 @@
 json.id pantry_item.id
 json.user_id pantry_item.user_id
-json.name pantry_item.ingredient.name
-json.image_url pantry_item.ingredient.image_url
+json.ingredient_id pantry_item.ingredient_id
+json.name pantry_item.ingredient&.name
+json.image_url pantry_item.ingredient&.image_url
 json.amount pantry_item.amount
 json.category pantry_item.category
 json.use_by_date pantry_item.use_by_date

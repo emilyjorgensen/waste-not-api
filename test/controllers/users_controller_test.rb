@@ -8,21 +8,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "index" do
-    get "/users.json"
-    assert_response 200
+  # test "index" do
+  #   get "/users.json"
+  #   assert_response 200
 
-    data = JSON.parse(response.body)
-    assert_equal User.count, data.length
-  end
+  #   data = JSON.parse(response.body)
+  #   assert_equal User.count, data.length
+  # end
 
-  test "show" do
-    get "/users/#{User.first.id}.json"
-    assert_response 200
+  # test "show" do
+  #   get "/users/#{User.first.id}.json"
+  #   assert_response 200
 
-    data = JSON.parse(response.body)
-    assert_equal ["id", "name", "email", "image_url", "created_at", "updated_at"], data.keys
-  end
+  #   data = JSON.parse(response.body)
+  #   assert_equal ["id", "name", "email", "image_url", "created_at", "updated_at"], data.keys
+  # end
 
   test "update" do
     user = User.first
@@ -33,10 +33,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Updated name", data["name"]
   end
 
-  test "destroy" do
-    assert_difference "User.count", -1 do
-      delete "/users/#{User.first.id}.json"
-      assert_response 200
-    end
-  end
+  # test "destroy" do
+  #   assert_difference "User.count", -1 do
+  #     delete "/users/#{User.first.id}.json"
+  #     assert_response 200
+  #   end
+  # end
 end

@@ -14,15 +14,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @users = User.all
-    render :index
-  end
+  # def index
+  #   @users = User.all
+  #   render :index
+  # end
 
-  def show
-    @user = User.find_by(id: params[:id])
-    render :show
-  end
+  # def show
+  #   @user = User.find_by(id: params[:id])
+  #   render :show
+  # end
 
   def update
     @user = User.find_by(id: params[:id])
@@ -33,9 +33,9 @@ class UsersController < ApplicationController
     render :show
   end
 
-  def destroy
-    @user = User.find_by(id: params[:id])
-    @user.destroy
-    render json: { message: "User destroyed successfully" }
-  end
+  # def destroy
+  #   @user = User.find_by(id: params[:id])
+  #   @user.destroy
+  #   render json: { message: "User destroyed successfully" }
+  # end
 end
