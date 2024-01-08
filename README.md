@@ -1,24 +1,58 @@
-# README
+# Waste-Not: Kitchen
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
 
-Things you may want to cover:
+This is the backend for waste-not-api, a Rails API that manages ingredients and pantry items for household organization to reduce food waste. The API is designed to handle users, ingredients, and pantry items with associated categories for filters and other functionalities.
 
-* Ruby version
+## Table of Contents
 
-* System dependencies
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Authentication](#authentication)
+- [Models](#models)
 
-* Configuration
+## Installation
 
-* Database creation
+1. **Clone the repository**
 
-* Database initialization
+```bash
+git clone https://github.com/emilyjorgensen/waste-not-api.git
+cd waste-not-api
+```
 
-* How to run the test suite
+2. **Install Dependencies**
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle install
+```
 
-* Deployment instructions
+3. **Database Setup**
 
-* ...
+```bash
+rails db:create
+rails db:migrate
+```
+
+4. **Seed the Database:**
+
+```bash
+rails db:seed
+```
+
+## Usage
+
+**Start the Rails server:**
+
+```bash
+rails server
+```
+
+The API will be accessible at http://localhost:3000/
+
+## Authentication
+
+This API uses JSON Web Tokens (JWT) for authentication. To access protected routes, include the JWT token in the Authroization header of your requests.
+
+Example
+curl -H "Authorization: Bearer YOUR_JWT_TOKEN" http://localhost:3000/pantry_items
