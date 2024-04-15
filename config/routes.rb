@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   get "/pantry_items/:id" => "pantry_items#show"
   patch "/pantry_items/:id" => "pantry_items#update"
   delete "/pantry_items/:id" => "pantry_items#destroy"
+
+  get "recipes" => "recipes#index"
 end
